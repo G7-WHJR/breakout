@@ -69,6 +69,7 @@ function draw() {
 
   ball.bounceOff(bricks, brickHit);
 
+  //Game end condition
   if(ball.isTouching(edgeB)){
     ball.velocityX=0;
     ball.velocityY=0;
