@@ -64,12 +64,17 @@ function draw() {
 
   ball.bounceOff(edgeL);
   ball.bounceOff(edgeR);
-  ball.bounceOff(edgeB);
   ball.bounceOff(edgeT);
   ball.bounceOff(paddle);
 
   ball.bounceOff(bricks, brickHit);
 
+  if(ball.isTouching(edgeB)){
+    ball.velocityX=0;
+    ball.velocityY=0;
+    paddle.remove();
+    edgeB.shapeColor="red";
+  }
   drawSprites();
 }
 
