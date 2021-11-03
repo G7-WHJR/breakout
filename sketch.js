@@ -1,16 +1,16 @@
-var paddle,ball,points;
+var bricks,points;
+var paddle,ball;
 var edgeT,edgeR, edgeB,edgeL;
 
 function setup() {
   createCanvas(450, 400);
 
+  bricks = new Group();
   points = 0;
 
   //paddle sprite
   paddle = createSprite(280, 380, 100, 5);
   paddle.shapeColor = "black";
-
-  bricks = new Group();
 
   //ball sprite
   ball = createSprite(150, 250, 15, 15);
@@ -54,7 +54,7 @@ function draw() {
 
   text("Score : ", 360, 30);
   text(points, 400, 30);
-
+  
   paddle.x = mouseX;
 
   if (mouseIsPressed) {
@@ -70,16 +70,19 @@ function draw() {
   ball.bounceOff(bricks, brickHit);
 
   //Game end condition
-  if(ball.isTouching(edgeB)){
-    ball.velocityX=0;
-    ball.velocityY=0;
-    paddle.remove();
-    edgeB.shapeColor="red";
-  }
+  ball.bounceOff(edgeB, endgame);
+  
   drawSprites();
 }
 
 function brickHit(ball,brick) {
   brick.remove();
   points++; //points = points + 1;
+}
+
+function endgame()
+{
+  ball.velocityX=0;
+  ball.velocityY=0;
+  paddle.remove();
 }
